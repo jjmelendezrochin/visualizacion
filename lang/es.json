@@ -247,5 +247,7 @@
     "edited": "editado",
     "Delete Chirps" : "Borrar Chirp",
     "Chirp deleted successfully!": "Chirp borrado exitosamente!",
-    "Querys": "Consultas"
+    "Querys": "Consultas",
+    "What are you looking for?": "Número de inventario a consultar",
+    "Query section": "Sección de consultas"
 }
