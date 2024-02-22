@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/querys', [ConsultaController::class, 'index'])
     ->name('querys.index');
 
+    Route::post('/querys', [ConsultaController::class, 'store'])
+    ->name('querys.store');
 });
 
 require __DIR__.'/auth.php';

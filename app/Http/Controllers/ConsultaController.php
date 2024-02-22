@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Consulta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConsultaController extends Controller
 {
@@ -28,7 +29,46 @@ class ConsultaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Aqui se hace la consulta del número de inventario
+        $resultado = DB::table('consultas')
+        ->where('numinv', $request->numinv)
+        ->first();
+
+        if($resultado==null)
+        {
+            $data = array(
+                'title' => 'Welcome to Laravel',
+                'services' => [$request->numinv,
+                    'Dato no Encontrado',
+                    'N/E',
+                    'N/E',
+                    'N/E',
+                    'N/E',
+                    'N/E',
+                    'N/E',
+                    0]
+            );
+        }
+        else{
+            $data = array(
+                'title' => 'Welcome to Laravel',
+                'services' => [$request->numinv, 'Dato Encontrado',
+                    $resultado->descripcion,
+                    'Silver',
+                    'laptop',
+                    '$2999',
+                    '10 piso',
+                    'Juan Perez',
+                    1]
+            );
+        }
+
+
+
+        // return $request->numinv;
+        //return view ('querys.index', ['dato' => $request->numinv]);
+        return view ('querys.index',  compact('data'))
+        ->with('status', __('Chirp created successfully!'));;
     }
 
     /**
