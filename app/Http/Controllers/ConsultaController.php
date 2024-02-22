@@ -38,28 +38,26 @@ class ConsultaController extends Controller
         {
             $data = array(
                 'title' => 'Welcome to Laravel',
-                'services' => [$request->numinv,
-                    'Dato no Encontrado',
+                'services' => [
+                    $request->numinv,
                     'N/E',
                     'N/E',
                     'N/E',
                     'N/E',
-                    'N/E',
-                    'N/E',
-                    0]
+                    'N/E']
             );
         }
         else{
             $data = array(
                 'title' => 'Welcome to Laravel',
-                'services' => [$request->numinv, 'Dato Encontrado',
+                'services' => [
+                    $request->numinv,
                     $resultado->descripcion,
-                    'Silver',
-                    'laptop',
-                    '$2999',
-                    '10 piso',
-                    'Juan Perez',
-                    1]
+                    $resultado->area,
+                    $resultado->edificio,
+                    $resultado->piso,
+                    $resultado->empleado,
+                    ]
             );
         }
 

@@ -10,18 +10,23 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <form method="POST" action="{{ route('querys.store') }}">
                     @csrf
-                    <div class="flex flex-row p-6 text-gray-900 dark:text-gray-100">
+                    <div class="flex flex-row p-6 text-gray-900 dark:text-gray-100 ">
                         <div>
-                            <input type="number" id="numinv" name="numinv" size="30px"
-                                class=" rounded-md border-gray-300 pt-4 bg-white shadow-sm transition-colors duration-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
+                            <input type="text"
+                                id="numinv"
+                                name="numinv"
+                                size="30px"
+                                width="30px"
+                                onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                                class="rounded-md border-gray-300  pt-4 bg-white shadow-sm transition-colors duration-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
                                 @if (!isset($data['services'][0]))
                                     value=""
                                 @else
-                                    value="{{ $data['services'][0] }}" @endif
+                                    value="{{ $data['services'][0] }}"
+                                @endif
                                 placeholder="{{ __('What are you looking for?') }}" required />
                         </div>
                         <div style="padding-left: .10in; padding-top: .10in">
-
                             <x-primary-button>
                                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 20 20">
@@ -68,20 +73,20 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data['services'][0] }}
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $data['services'][1] }}
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data['services'][2] }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data['services'][3] }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data['services'][4] }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $data['services'][5] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $data['services'][6] }}
                                     </td>
                                 </tr>
                             </tbody>
