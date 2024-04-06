@@ -16,24 +16,21 @@ use App\Http\Controllers\ConsultaController;
 |
 */
 
-/*
-DB::listen(function ($query)
-{
-    dump($query->sql);
-});
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+/*
+Route::get('/dashboard', [ConsultaController::class, 'index'])
+->middleware(['auth', 'verified'])->name('dashboard');
+*/
+
+Route::get('/dashboard', [ConsultaController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
-    Route::View('/dahsboard', 'dashboard')
-    ->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])
     ->name('profile.edit');
@@ -64,6 +61,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/querys', [ConsultaController::class, 'store'])
     ->name('querys.store');
+
+    Route::get('/exportar', [ConsultaController::class, 'exporta'])
+    ->name('querys.exporta');
+   
+    Route::get('phpmyinfo', function () {
+        phpinfo(); 
+    })->name('phpmyinfo');
+
 });
 
 require __DIR__.'/auth.php';

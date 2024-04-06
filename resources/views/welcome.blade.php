@@ -25,25 +25,34 @@
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                            {{ __('Login') }}
+                            {{ __('Dashboard') }}
                         </a>
 
                         @if (Route::has('register'))
+                            <!--
+                                TODO
+                                Aqui se quita el acceso para que no tengan la
+                                posibilidad un nuevo usuario
                             <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                             {{ __('Register') }}
+                            -->
                         </a>
                         @endif
                     @endauth
                 </div>
             @endif
 
+            <img src="{{ asset('/images/icono_pjcdmx.png') }}">
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
                     <div class="text-center text-9xl text-gray-500 dark:text-gray-400">
-                        <p style="font-size:xx-large;">Módulo de consulta de datos inventariados<br>Solsim Soluciones</p>
+                        <p style="font-size:xx-large;">Módulo de consulta de datos inventariados<br></p>
                     </div>
                 </div>
             </div>
+            
         </div>
+
+        
     </body>
 </html>
