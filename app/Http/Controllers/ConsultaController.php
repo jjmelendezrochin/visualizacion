@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use nilsenj\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Log;
+
 
 class ConsultaController extends Controller
 {
@@ -17,7 +19,24 @@ class ConsultaController extends Controller
      */
     public function index()
     {
-        return view ('querys.index');
+        // Ruta de la carpeta que deseas explorar
+        $folderPath = public_path('uploads'); // Cambia esto según tu estructura
+
+        // Obtener la lista de archivos y directorios
+        $contents = scandir($folderPath);
+
+        // Filtrar los elementos "." y ".."
+        $archivos = array_diff($contents, ['.', '..']);
+
+        // print_r($filteredContents);
+        $message = 'Algun mensaje';
+
+        // Muestra los datos en
+        // C:\laragon\www\Visualizacion\storage\logs
+        Log::info($archivos);
+
+        // $archivos = Archivos::paginate(5);
+        return view ('dashboard', ['archivos' => $archivos ], ['ruta' => $folderPath]);
     }
 
     /**
@@ -33,88 +52,17 @@ class ConsultaController extends Controller
      */
     public function store(Request $request)
     {
-        /*
-        $validated = $request->validate([
-            'numinv' => 'required',
-            'descripcion' => 'required',
-            'area' => 'required',
-            'edificio' => 'required',
-            'piso' => 'required',
-            'empleado' => 'required',
-            'numempleado' => 'required',
-            'serie' => 'required'
-        ]);
-        */
 
-        // *************************************
-        // Obteniendo fecha máxima de consulta
-        $sql0 = 'select fecha_y_hora_levantamiento from consultas c where id = (select max(id) from consultas c2);';
-        $fecha_maxima = DB::select($sql0);        
-        
-        $sql = "Call Proc_Consulta1('" 
-        . $request->numinv   . "','"  
-        . $request->descripcion . "','" 
-        . $request->area     . "','" 
-        . $request->edificio . "','" 
-        . $request->piso     . "','"
-        . $request->empleado . "','"
-        . $request->numempleado . "','"
-        . $request->serie    . "');";
-
-        $resultado = DB::select($sql);
-        $cta = count($resultado);
-
-
-        if($resultado==null)
-        {
-            $datos = [
-                $data   = null,
-                $param  = $request,
-                $cuenta = $cta,
-                $Fecha  = $fecha_maxima[0]->fecha_y_hora_levantamiento
-            ];
-        }
-        else{
-            $datos = [
-                $data   = $resultado,
-                $param  = $request,
-                $cuenta = $cta,
-                $Fecha  = $fecha_maxima[0]->fecha_y_hora_levantamiento
-            ];
-        }
-
-        // Toastr::info('This is a test');
-        // toastr.success('Consulta de datos', 'Atención');
-        // toast()->success('Consulta exitosa', 'Info');
-        
-        // echo "<script>";
-        // echo "toastr.success('consulta exitosa', 'Atención');";
-        // echo "</script>";
-
-        return view ('querys.index',  compact('datos'))
-        ->with('status', __('Chirp created successfully!'));;
     }
 
     /**
      * Export query table
      */
     public function exporta(Request $request)
-    {        
-        $proceso = '"C:\Trabajo\CargaDatosInventarioaLaravel\bin\Release\CargaDatosInventarioaLaravel.exe" "'. 
-        $request->numinv . '" "'. 
-        $request->descripcion . '" "'. 
-        $request->area . '" "'. 
-        $request->edificio . '" "'. 
-        $request->piso . '" "'. 
-        $request->empleado . '" "'. 
-        $request->numempleado . '" "'.
-        $request->serie . '"';
-        
-        exec($proceso);
-        
-        return redirect('http://172.19.11.54/Exportacion/Exporta_parcial.xlsx');
+    {
+
     }
-   
+
     /**
      * Display the specified resource.
      */

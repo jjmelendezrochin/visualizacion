@@ -22,16 +22,13 @@
                     <!--
                         TODO
                         ELIMINANDO LINKS
-
+                    -->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
                     <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.*')">
                         {{ __('Chirps') }}
                     </x-nav-link>
-                    -->
-
                     <x-nav-link :href="route('querys.index')" :active="request()->routeIs('querys.*')">
                         {{ __('Querys') }}
                     </x-nav-link>
