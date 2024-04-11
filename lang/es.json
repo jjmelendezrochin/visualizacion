@@ -259,5 +259,10 @@
     "Query section": "Sección de consultas",
     "Chirps": "Comentarios",
     "Chirp": "Comenta",
-    "UserName": "Nombre de usuario"
+    "UserName": "Nombre de usuario",
+    "Title":    "Plataforma de Visualización",
+    "Title_App": "Plataforma de visualizacion de documentos escaneados",
+    "Folders": "Carpetas",
+    "Content": "Contenido",
+    "What folder are you looking for?": "¿Que carpeta buscas?"
 }

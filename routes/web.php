@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\CarpetasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*
-Route::get('/dashboard', [ConsultaController::class, 'index'])
-->middleware(['auth', 'verified'])->name('dashboard');
-*/
 
 Route::get('/dashboard', [ConsultaController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -64,9 +61,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/exportar', [ConsultaController::class, 'exporta'])
     ->name('querys.exporta');
-   
+
+    Route::get('/folders', [CarpetasController::class, 'index'])
+    ->name('folders');
+
     Route::get('phpmyinfo', function () {
-        phpinfo(); 
+        phpinfo();
     })->name('phpmyinfo');
 
 });
