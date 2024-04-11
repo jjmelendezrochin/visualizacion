@@ -30,9 +30,9 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('querys.index')" :active="request()->routeIs('querys.*')">
+                    {{-- <x-nav-link :href="route('querys.index')" :active="request()->routeIs('querys.*')">
                         {{ __('Querys') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                 </div>
             </div>
 
