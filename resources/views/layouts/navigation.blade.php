@@ -30,9 +30,6 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    {{-- <x-nav-link :href="route('querys.index')" :active="request()->routeIs('querys.*')">
-                        {{ __('Querys') }}
-                    </x-nav-link> --}}
                 </div>
             </div>
 
@@ -56,11 +53,10 @@
                             TODO
                             Aqui see oculta el perfil para que no lo puedan
                             ver o cambiar
-
+                        -->
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        -->
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
