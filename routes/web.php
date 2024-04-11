@@ -22,9 +22,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', [ConsultaController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::get('/dashboard', [ConsultaController::class, 'index'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
+
+Route::get('/folders', [CarpetasController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('folders');
 
 
 Route::middleware('auth')->group(function () {
@@ -64,6 +68,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/folders', [CarpetasController::class, 'index'])
     ->name('folders');
+
+    Route::get('/dashboard', [ConsultaController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
     Route::get('phpmyinfo', function () {
         phpinfo();
