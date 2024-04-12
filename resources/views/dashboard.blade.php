@@ -121,6 +121,7 @@
 
                 <form method="GET" action="{{ route('dashboard') }}" name="form1" id="form1">
                     @csrf
+                    <input type="hidden" id="laruta" name="laruta" value="{{$datos[2]}}">
                     <div class="flex flex-row p-6 text-gray-900 dark:text-gray-100 ">
                         <div>
                             <!-- ********************* -->

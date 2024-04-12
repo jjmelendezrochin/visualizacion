@@ -19,11 +19,10 @@ class ConsultaController extends Controller
      */
     public function index(Request $request)
     {
-        //$laruta = 'uploads';
-        $laruta = $request->ruta;
-
-        if (!is_null($laruta))
+        if (!is_null($request->ruta))
         {
+            $laruta = $request->ruta;
+
             // Ruta de la carpeta que deseas explorar
             $folderPath = public_path($laruta); // Cambia esto según tu estructura
 
@@ -72,49 +71,57 @@ class ConsultaController extends Controller
 
             return view ('dashboard', compact('datos'));
         }
-        else
+        elseif (!is_null($request->laruta))
         {
-            $laruta = '.';
-            // Ruta de la carpeta que deseas explorar
-            $folderPath = public_path($laruta); // Cambia esto según tu estructura
+            $laruta = $request->laruta;
+
+        // Ruta de la carpeta que deseas explorar
+        $folderPath = public_path($laruta); // Cambia esto según tu estructura
 
             // Obtener la lista de archivos y directorios
             $contents = scandir($folderPath);
+            $criterio = $folderPath . '\\' . $request->nombre_archivo . '*';
+            $contents = glob($criterio);
 
-            // Filtrar los elementos
-            $archivos = array_diff($contents, ['.', '..','.htaccess','build','images','js']);
+            Log::info($request->nombre_archivo);
+            Log::info($criterio);
+
+
+            // Filtrar los elementos "." y ".."
+            $archivos = array_diff($contents, ['.', '..']);
 
             // Muestra los datos en
             // C:\laragon\www\Visualizacion\storage\logs
 
+            // Log::info($archivos);
+
             // Truncado de tabla rutas
             Rutas::truncate();
-            Log::info('********************');
 
             // Inserción de datos en un modelo
             foreach ($archivos as &$archivo) {
-
-                if (strpos($archivo, '.') == false) {
-                    $rutas = new Rutas;
-                    $rutas->nivel = 1;
-                    $rutas->ruta =  $laruta;
-                    $rutas->archivo = str_replace($folderPath."\\" , '', $archivo);
-                    $rutas->save();
-                }
+                //Log::info($archivo);
+                // Log::info(str_replace($folderPath."\\" , '', $archivo));
+                $rutas = new Rutas;
+                $rutas->nivel = 1;
+                $rutas->ruta =  $laruta;
+                $rutas->archivo = str_replace($folderPath."\\" , '', $archivo);
+                $rutas->save();
             }
 
 
-            //$rutas = Rutas::where('archivo', 'like', $request->nombre_archivo . '%');
+            // $rutas = RutasDB::select('select * from rutas where archivo like ?', $request->nombre_archivo);
+            // $rutas = Rutas::select('select * from rutas where archivo like ?', $request->nombre_archivo);
+            $rutas = Rutas::where('archivo', 'like', $request->nombre_archivo . '%');
             $rutas = Rutas::paginate(10);
 
             $datos = [
                 $data   = $rutas,
+                $param  = $request,
                 $direc  = $laruta
             ];
 
-            //return view ('dashboard', compact('datos'));
-            return view ('Carpetas', compact('datos'));
-        }
+        return view ('dashboard', compact('datos'));
     }
 
     /**
