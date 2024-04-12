@@ -75,8 +75,8 @@ class ConsultaController extends Controller
         {
             $laruta = $request->laruta;
 
-        // Ruta de la carpeta que deseas explorar
-        $folderPath = public_path($laruta); // Cambia esto según tu estructura
+            // Ruta de la carpeta que deseas explorar
+            $folderPath = public_path($laruta); // Cambia esto según tu estructura
 
             // Obtener la lista de archivos y directorios
             $contents = scandir($folderPath);
