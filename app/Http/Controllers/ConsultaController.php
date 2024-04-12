@@ -121,7 +121,51 @@ class ConsultaController extends Controller
                 $direc  = $laruta
             ];
 
-        return view ('dashboard', compact('datos'));
+            return view ('dashboard', compact('datos'));
+        }
+        else{
+            $laruta = '.';
+
+            // Ruta de la carpeta que deseas explorar
+            $folderPath = public_path($laruta); // Cambia esto según tu estructura
+
+            // Obtener la lista de archivos y directorios
+            $contents = scandir($folderPath);
+
+            // Filtrar los elementos
+            $archivos = array_diff($contents, ['.', '..','.htaccess','build','images','js']);
+
+            // Muestra los datos en
+            // C:\laragon\www\Visualizacion\storage\logs
+
+            // Truncado de tabla rutas
+            Rutas::truncate();
+            Log::info('********************');
+
+            // Inserción de datos en un modelo
+            foreach ($archivos as &$archivo) {
+
+                if (strpos($archivo, '.') == false) {
+                    $rutas = new Rutas;
+                    $rutas->nivel = 1;
+                    $rutas->ruta =  $laruta;
+                    $rutas->archivo = str_replace($folderPath."\\" , '', $archivo);
+                    $rutas->save();
+                }
+            }
+
+
+            //$rutas = Rutas::where('archivo', 'like', $request->nombre_archivo . '%');
+            $rutas = Rutas::paginate(10);
+
+            $datos = [
+                $data   = $rutas,
+                $direc  = $laruta
+            ];
+
+            //return view ('dashboard', compact('datos'));
+            return view ('Carpetas', compact('datos'));
+        }
     }
 
     /**
