@@ -83,8 +83,7 @@
         </h2>
     </x-slot>
 
-
-    <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px">
+    <div style="padding-top: 10px; padding-left: 20px; padding-right: 20px">
         <div class="max-w-full mx-auto">
             <div class="bg-inherit dark:bg-gray-800 overflow-hidden  sm:rounded-lg">
 
@@ -154,9 +153,7 @@
                     </tbody>
                 </table>
             </div>
-
             <br>
-
         </div>
     </div>
 </x-app-layout>
