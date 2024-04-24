@@ -23,12 +23,13 @@
                         TODO
                         ELIMINANDO LINKS
                     -->
+                    
                     <x-nav-link :href="route('folders')" :active="request()->routeIs('folders')">
                         {{ __('Folders') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <!-- <x-nav-link :href="route('dashboard')"  :active="false">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-nav-link> -->
 
                 </div>
             </div>

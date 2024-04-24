@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/folders', [CarpetasController::class, 'index'])
     ->name('folders');
 
+    Route::get('/store', [CarpetasController::class, 'store'])
+    ->name('store');
+
     Route::get('/dashboard', [ConsultaController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

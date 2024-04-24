@@ -49,7 +49,6 @@ class CarpetasController extends Controller
             }
         }
 
-
         //$rutas = Rutas::where('archivo', 'like', $request->nombre_archivo . '%');
         $rutas = Rutas::paginate(10);
 
@@ -75,7 +74,66 @@ class CarpetasController extends Controller
      */
     public function store(Request $request)
     {
+        $laruta = '.';
 
+        // Ruta de la carpeta que deseas explorar
+        $folderPath = public_path($laruta); // Cambia esto según tu estructura
+
+        // Obtener la lista de archivos y directorios
+        $contents = scandir($folderPath);
+
+        // Filtrar los elementos
+        $archivos = array_diff($contents, ['.', '..','.htaccess','build','images','js']);
+
+        // Muestra los datos en
+        // C:\laragon\www\Visualizacion\storage\logs
+
+        // Truncado de tabla rutas
+        Rutas::truncate();
+        Log::info('********************');
+
+        // Inserción de datos en un modelo
+        foreach ($archivos as &$archivo) {
+
+            if (strpos($archivo, '.') == false) {
+                $rutas = new Rutas;
+                $rutas->nivel = 1;
+                $rutas->ruta =  $laruta;
+                $rutas->archivo = str_replace($folderPath."\\" , '', $archivo);
+                $rutas->save();
+            }
+        }
+
+        // Consulta los datos que cumplan con el criterio
+        $consulta = "SELECT archivo FROM rutas WHERE archivo like '%" . $request->nombre_archivo . "%'";
+        $resultados = DB::select($consulta);
+        
+        Log::info('consulta sql ' . $consulta);
+
+        //Trunca las tablas luego del select
+        Rutas::truncate();
+
+        // Inserción de datos en un modelo
+        foreach ($resultados as $fila) {
+            $archivo = $fila->archivo;
+            $rutas = new Rutas;
+            $rutas->nivel = 1;
+            $rutas->ruta =  $laruta;
+            $rutas->archivo = str_replace($folderPath . "\\", '', $archivo);
+            $rutas->save();
+        }
+
+        //$rutas = Rutas::where('archivo', 'like', $request->nombre_archivo . '%');
+        $rutas = Rutas::paginate(10);
+
+        $datos = [
+            $data   = $rutas,
+            $direc  = $laruta,
+            $datoconsulta = $request->nombre_archivo
+        ];
+
+        //return view ('dashboard', compact('datos'));
+        return view ('Carpetas', compact('datos'));
     }
 
     /**
