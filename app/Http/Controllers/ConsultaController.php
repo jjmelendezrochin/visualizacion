@@ -61,7 +61,7 @@ class ConsultaController extends Controller
 
 
             $rutas = Rutas::where('archivo', ' like ', '%' . $request->nombre_archivo . '%');
-            $rutas = Rutas::paginate(50);
+            $rutas = Rutas::paginate(20);
 
             $datos = [
                 $data   = $rutas,

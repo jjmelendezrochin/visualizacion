@@ -201,8 +201,11 @@
                     </div>
                     &NonBreakingSpace;
                     &NonBreakingSpace;
-                    @endforeach
-                    
+                    @endforeach                    
+                </div>
+
+                <div class="justify-content-center p-1 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                    {{ $datos[0]->withQueryString()->links() }}
                 </div>
                 <!-- <div class="p-1 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                     @foreach ($datos[0] as $ruta) -->

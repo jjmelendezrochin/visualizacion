@@ -58,7 +58,7 @@ class FunctionsController extends Controller
         }
 
         Log::info('consulta sql ' . $consulta);
-        $rutas = Rutas::paginate(50);
+        $rutas = Rutas::paginate(20);
 
         $datos = [
             $data   = $rutas,
